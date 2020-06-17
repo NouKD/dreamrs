@@ -2,9 +2,9 @@
 
 {% load static %}
  
- {% block title%}
+ {% block title %}
  Real_state || Services
- {%endblock title%}
+ {% endblock title %}
  
  
  {% block content%}
@@ -76,7 +76,7 @@
                             sed do eiusmodtemporincididunt u labore et dolore magna aliqua.
                             Quis ipsum pendisse ultrices gravida. Risus commodo viverra
                             maecenas accumsan lacus vel </p>
-                        <a href="service.html" class="btn_1">learn more</a>
+                        <a href="{% url 'services' %}" class="btn_1">learn more</a>
                     </div>
                 </div>
             </div>

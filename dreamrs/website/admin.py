@@ -22,14 +22,14 @@ class ServicesAdmin(Action):
 
 
 class ApartmentAdmin(Action):
-    list_display = ('images_view', 'nom', 'date_add','date_update', 'status')
-    list_filter = ('nom', )
-    search_fields = ('nom', )
+    list_display = ('images_view','superficie', 'douche', 'n_win', 'titre', 'date_add','date_update', 'status')
+    list_filter = ('titre', )
+    search_fields = ('titre', )
     date_hierarchy = 'date_add'
-    list_display_links = ['nom']
-    ordering = ['nom']
+    list_display_links = ['titre']
+    ordering = ['titre']
     list_per_page = 10
-    fieldsets = [('Info', {'fields': ['nom', 'description', 'image']}),
+    fieldsets = [('Info', {'fields': ['titre', 'superficie', 'douche', 'n_win', 'description', 'image']}),
                  ('Standard', {'fields': ['status']})
                  ]
 

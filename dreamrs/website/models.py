@@ -6,6 +6,7 @@ class Services(models.Model):
     nom = models.CharField(max_length=255)
     image = models.ImageField(upload_to="images/Services")
     description =  models.TextField()
+
     date_add = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=True)
@@ -40,7 +41,7 @@ class Projet(models.Model):
     nom = models.CharField(max_length=255)
     image = models.ImageField(upload_to="images/Services")
     description =  models.TextField()
-    cat_projet = models.ManyToManyField("CatProjet", verbose_name="cat_projet") 
+    cat_projet = models.ForeignKey(CatProjet, on_delete=models.CASCADE, related_name='Catprojet', null=True) 
 
     date_add = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)
@@ -57,9 +58,12 @@ class Projet(models.Model):
 
 
 class Apartment(models.Model):
-    nom = models.CharField(max_length=255)
+    titre = models.CharField(max_length=255)
     description = models.TextField()
     image = models.ImageField(upload_to='images/Apartment')
+    superficie = models.FloatField(null=True)
+    douche = models.IntegerField(null=True)
+    n_win = models.IntegerField(null=True)
 
     date_add = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)
@@ -71,4 +75,4 @@ class Apartment(models.Model):
         verbose_name_plural = 'Apartments'
 
     def __str__(self):
-        return self.nom
+        return self.titre

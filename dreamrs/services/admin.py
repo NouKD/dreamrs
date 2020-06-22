@@ -6,14 +6,14 @@ from Action.action import Action
 # Register your models here.
 
 class ContactAdmin(Action):
-    list_display = ('nom', 'email', 'titre','date_add', 'date_update', 'status')
+    list_display = ('nom', 'email', 'sujet','date_add', 'date_update', 'status')
     list_filter = ('nom', )
     search_fields = ('nom', )
     date_hierarchy = 'date_add'
     list_display_links = ['nom']
     ordering = ['date_add']
     list_per_page = 15
-    fieldsets = [('Info Contact', {'fields': ['nom', 'email', 'titre', 'message']}),
+    fieldsets = [('Info Contact', {'fields': ['nom', 'email', 'sujet', 'message']}),
                  ('Standard', {'fields': ['status']})
                  ]
 
@@ -50,14 +50,14 @@ class SocialAccountAdmin(Action):
 
 
 class SiteInfoAdmin(Action):
-    list_display = ('logo_view', 'email', 'date_add','date_update', 'status')
+    list_display = ('logo_view', 'tel', 'adresse', 'email', 'date_add','date_update', 'status')
     list_filter = ('email', )
     search_fields = ('email', )
     date_hierarchy = 'date_add'
     list_display_links = ['email']
     ordering = ['email']
     list_per_page = 10
-    fieldsets = [('Info du site', {'fields': ['email', 'logo', 'map_url']}),
+    fieldsets = [('Info du site', {'fields': ['email', 'tel', 'adresse', 'logo', 'map_url']}),
                  ('Standard', {'fields': ['status']})
                  ]
 
@@ -82,18 +82,18 @@ class PresentationAdmin(Action):
 
 
 class TemoignageAdmin(Action):
-    list_display = ('images_view', 'nom', 'prenom', 'date_add','date_update', 'status')
+    list_display = ('photo_view', 'job', 'nom', 'prenom', 'date_add','date_update', 'status')
     list_filter = ('nom', )
     search_fields = ('nom', )
     date_hierarchy = 'date_add'
     list_display_links = ['nom']
     ordering = ['nom']
     list_per_page = 10
-    fieldsets = [('Info Temoignage', {'fields': ['nom', 'prenom', 'message', 'photo']}),
+    fieldsets = [('Info Temoignage', {'fields': ['nom', 'prenom', 'message','job', 'photo']}),
                  ('Standard', {'fields': ['status']})
                  ]
 
-    def images_view(self, obj):
+    def photo_view(self, obj):
         return mark_safe('<img src="{url}" style="height:50px; width:100px">'.format(url=obj.photo.url))
 
 

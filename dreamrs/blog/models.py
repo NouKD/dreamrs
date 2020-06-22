@@ -1,9 +1,25 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
+class UserP(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to='photo/UserP')
+
+    date_add = models.DateTimeField(auto_now_add=True)
+    date_update = models.DateTimeField(auto_now=True)
+    status = models.BooleanField(default=True)
+
+    class Meta():
+        verbose_name = 'UserP'
+        verbose_name_plural = 'UserPs'
+
+    def __str__(self):
+        return str(self.user)
+
 class CategorieArticle(models.Model):
-    nom = models.CharField(max_length=255)
+    nom = models.CharField(max_length=100)
     description = models.TextField()
     image = models.ImageField(upload_to="images/CategorieArticle")
 
@@ -21,7 +37,6 @@ class CategorieArticle(models.Model):
 
 class Tag(models.Model):
     nom = models.CharField(max_length=255)
-    description = models.TextField()
 
     date_add = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)
@@ -40,8 +55,9 @@ class Article(models.Model):
     description = models.TextField()
     contenu = models.TextField()
     image = models.ImageField(upload_to="images/Article")
-    tag = models.ManyToManyField(Tag, related_name='tag_Article')
+    tag = models.ManyToManyField(Tag, related_name='tag_Article', blank=True )
     categorie = models.ForeignKey(CategorieArticle, on_delete=models.CASCADE, related_name='categorie_Article')
+    auteur = models.ForeignKey(UserP, on_delete=models.CASCADE, related_name='auteur_Article', null=True)
 
     date_add = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)

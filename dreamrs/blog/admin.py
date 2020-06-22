@@ -13,6 +13,22 @@ class CommentaireInline(admin.StackedInline):
 
 class CategorieArticleInline(admin.TabularInline):
     model = models.Article
+    
+class UserPAdmin(Action):
+    list_display = ('user', 'date_add', 'date_update','status', 'photo_view')
+    list_filter = ('status', )
+    search_fields = ('user', )
+    date_hierarchy = 'date_add'
+    list_display_links = ['user']
+    ordering = ['user']
+    list_per_page = 10
+    fieldsets = [('Info Article', {'fields': ['user', 'photo',]}),
+                 ('Standare', {'fields': ['status']})
+                 ]
+
+    def photo_view(self, obj):
+        return mark_safe('<img src="{url}" style="height:50px; width:100px">'.format(url=obj.photo.url))
+
 
 
 class CategorieArticleAdmin(Action):
@@ -40,7 +56,7 @@ class TagAdmin(Action):
     list_display_links = ['nom']
     ordering = ['nom']
     list_per_page = 10
-    fieldsets = [('Info Tag', {'fields': ['nom', 'description']}),
+    fieldsets = [('Info Tag', {'fields': ['nom',]}),
                  ('Standare', {'fields': ['status']})
                  ]
 
@@ -53,7 +69,7 @@ class ArticleAdmin(Action):
     list_display_links = ['titre']
     ordering = ['titre']
     list_per_page = 10
-    fieldsets = [('Info Article', {'fields': ['titre', 'contenu', 'description', 'image', 'tag', 'categorie']}),
+    fieldsets = [('Info Article', {'fields': ['titre', 'auteur', 'contenu', 'description', 'image', 'tag', 'categorie']}),
                  ('Standare', {'fields': ['status']})
                  ]
     inlines = [CommentaireInline]
@@ -83,4 +99,4 @@ _register(models.CategorieArticle, CategorieArticleAdmin)
 _register(models.Tag, TagAdmin)
 _register(models.Article, ArticleAdmin)
 _register(models.Commentaire, CommentaireAdmin)
-CommentaireInline
+_register(models.UserP, UserPAdmin)

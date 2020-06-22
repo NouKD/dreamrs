@@ -6,7 +6,7 @@ class Contact(models.Model):
     message = models.TextField()
     nom = models.CharField(max_length=255)
     email = models.EmailField()
-    titre = models.CharField(max_length=255)
+    sujet = models.CharField(max_length=255)
 
     date_add = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)
@@ -65,6 +65,8 @@ class SiteInfo(models.Model):
     map_url = models.TextField()
     email = models.EmailField()
     logo = models.ImageField(upload_to="images/SiteInfo")
+    adresse = models.CharField(max_length=255, null=True)
+    tel = models.CharField(max_length=255, null=True)
 
     date_add = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)
@@ -103,6 +105,7 @@ class Temoignage(models.Model):
     nom = models.CharField(max_length=255)
     prenom = models.CharField(max_length=255)
     message = models.TextField()
+    job = models.CharField(max_length=255, null=True)
 
     date_add = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)

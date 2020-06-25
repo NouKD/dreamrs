@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.validators import EmailValidator
 from django.contrib.auth.models import User
 from .models import Apartment, CatProjet, Projet, Services 
@@ -9,6 +9,7 @@ from services.models import Contact, NewsLetter, Presentation, SiteInfo, SocialA
 
 def index(request):
     
+    presentation = Presentation.objects.filter(status=True).last
     article = Article.objects.filter(status=True)[:3]
     project = CatProjet.objects.filter(status=True)[:4]
     site_info = SiteInfo.objects.filter(status=True).last
@@ -16,6 +17,7 @@ def index(request):
     services = Services.objects.filter(status=True)[:4]
    
     data = {
+        'presentation' : presentation,
         'article' : article,
         'project'  : project,
         'site_info'  : site_info,
@@ -26,7 +28,7 @@ def index(request):
 
 def about(request):
 
-    presentation = Presentation.objects.filter(status=True)[:1]
+    presentation = Presentation.objects.filter(status=True).last
     appartement = Apartment.objects.filter(status=True)[:4]
     temoignage = Temoignage.objects.filter(status=True)[:3]
     
@@ -49,9 +51,8 @@ def contact(request):
         sujet = request.POST.get('sujet')
         message = request.POST.get('message')
         try:
-            validate_email(email)
-            isemail = True
-            if isemail and not email.isspace() and email is not None and nom is not None and message is not None:
+            isemail = validate_email(email)
+            if isemail and not email.isspace() and nom and message:
                 print("1")
                 contact = models.Contact(
                     nom = nom,
@@ -72,4 +73,12 @@ def contact(request):
         'message' : message,
     }
     
-    return render(request, 'pages/contact.html', data)        
+    return render(request, 'pages/contact.html', data)
+
+def news_letter(request):
+    if request.method == 'POST':
+        newsletter = request.POST.get('newsletter')
+        if newsletter:
+            nl = NewsLetter.objects.create(email=newsletter)
+            nl.save()
+    return redirect(request.META.get('HTTP_REFERER', '/'))                

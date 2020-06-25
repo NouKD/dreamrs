@@ -35,66 +35,27 @@
                  </div>
                  <div class="grid">
                     <div class="grid-sizer"></div>
-                    <div class="grid-item big_weight">
+
+                    
+                    {% for appartement in appartements %}
+                       <div class="{% cycle 'grid-item big_weight' 'grid-item big_height' 'grid-item' 'grid-item' %}">
                        <div class="project_img">
-                          <img src="{% static 'img/gallery/gallery_1.png' %}" alt="">
+                          <img src="{{ appartement.image.url }}" alt="">
                           <div class="project_gallery_hover_text">
                              <p>Home Apartment</p>
-                             <h3>Detached House For Sale </h3>
+                             <h3>{{ appartement.titre }} </h3>
                              <ul>
-                                <li><a href=""><span class="flaticon-bath"></span></a> 04</li>
-                                <li><a href=""><span class="flaticon-bed"></span></a> 03</li>
-                                <li><a href=""><span class="flaticon-frame"></span></a> 2400 sqft</li>
+                                <li><a href=""><span class="flaticon-bath"></span></a> {{ appartement.douche }} </li>
+                                <li><a href=""><span class="flaticon-bed"></span></a> {{ appartement.n_win}} </li>
+                                <li><a href=""><span class="flaticon-frame"></span></a> {{ appartement.superficie}} sqft</li>
                                 <li><a href=""><span class="ti-heart"></span></a> like</li>
                              </ul>
                           </div>
                        </div>
                     </div>
-                    <div class="grid-item big_height">
-                       <div class="project_img">
-                          <img src="{% static 'img/gallery/gallery_4.png' %}" alt="">
-                          <div class="project_gallery_hover_text">
-                             <p>Home Apartment</p>
-                             <h3>Detached House For Sale </h3>
-                             <ul>
-                                <li><a href=""><span class="flaticon-bath"></span></a> 04</li>
-                                <li><a href=""><span class="flaticon-bed"></span></a> 03</li>
-                                <li><a href=""><span class="flaticon-frame"></span></a> 2400 sqft</li>
-                                <li><a href=""><span class="ti-heart"></span></a> like</li>
-                             </ul>
-                          </div>
-                       </div>
-                    </div>
-                    <div class="grid-item">
-                       <div class="project_img">
-                          <img src="{% static 'img/gallery/gallery_2.png' %}" alt="">
-                          <div class="project_gallery_hover_text">
-                             <p>Home Apartment</p>
-                             <h3>Detached House For Sale </h3>
-                             <ul>
-                                <li><a href=""><span class="flaticon-bath"></span></a> 04</li>
-                                <li><a href=""><span class="flaticon-bed"></span></a> 03</li>
-                                <li><a href=""><span class="flaticon-frame"></span></a> 2400 sqft</li>
-                                <li><a href=""><span class="ti-heart"></span></a> like</li>
-                             </ul>
-                          </div>
-                       </div>
-                    </div>
-                    <div class="grid-item">
-                       <div class="project_img">
-                          <img src="{% static 'img/gallery/gallery_3.png' %}" alt="">
-                          <div class="project_gallery_hover_text">
-                             <p>Home Apartment</p>
-                             <h3>Detached House For Sale </h3>
-                             <ul>
-                                <li><a href=""><span class="flaticon-bath"></span></a> 04</li>
-                                <li><a href=""><span class="flaticon-bed"></span></a> 03</li>
-                                <li><a href=""><span class="flaticon-frame"></span></a> 2400 sqft</li>
-                                <li><a href=""><span class="ti-heart"></span></a> like</li>
-                             </ul>
-                          </div>
-                       </div>
-                    </div>
+                    {% endfor %}
+                       
+                    
                  </div>
               </div>
            </div>

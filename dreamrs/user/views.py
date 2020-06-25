@@ -24,4 +24,4 @@ def forgot(request):
         
     }
     
-    return render(request, 'pages/forgot-password-20.html', data)      
+    return render(request, 'pages/forgot-password-20.html', data)         

@@ -5,36 +5,27 @@ from website.models import Apartment, CatProjet, Projet, Services
 
 # Create your views here.
 
-def Apartment(request):
+def apartment(request):
 
-    appartement = Apartment.objects.all().order_by('-date_add')[:4]
+    appartement = Apartment.objects.all().order_by('-date_update')[:4]
     presentation = Presentation.objects.filter(status=True)[:1]
 
     data = {
-        'appartement' : appartement,
+        'appartements' : appartement,
         'presentation' : presentation,
     }
     
     return render(request, 'pages/Apartment.html', data)
-
-def elements(request):
     
-    data = {
-        
-    }
-    
-    return render(request, 'pages/elements.html', data)
 
 def project(request):
     
     projet = Projet.objects.filter(status=True)[:3]
-    projet_n = project.objects.all().order_by('-date_add')[:2].get()
-    cat_projet = CatProjet.objects.all()
+    projet_n = Projet.objects.filter(status=True).order_by('-date_update')[:2]
 
     data = {
         'projet' : projet,
         'projet_n' : projet_n,
-        'cat_projet' : cat_projet, 
     }
     
     return render(request, 'pages/project.html', data)
